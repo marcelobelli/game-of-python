@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "game-of-python"
+version = "0.1.0"
+description = ""
+authors = ["Marcelo Belli <marcelo@belli.me>"]
+readme = "README.md"
+packages = [{include = "game_of_python"}]
+
+[tool.black]
+line-length = 120
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
