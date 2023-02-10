@@ -11,3 +11,12 @@ def test_cell_must_have_a_position():
     cell = Cell(1, 1)
     assert cell.x == 1
     assert cell.y == 1
+
+
+def test_grid_cannot_have_duplicated_cells():
+    grid = Grid(10, 10)
+    cell_1 = Cell(1, 1)
+    cell_2 = Cell(1, 1)
+    grid.add_cell(cell_1)
+    grid.add_cell(cell_2)
+    assert len(grid.cells) == 1
