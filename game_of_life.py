@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+
 class Cell:
     def __init__(self, x, y):
         self.x = x
@@ -34,10 +37,18 @@ class Grid:
 
     def next_iteration(self):
         will_die = set()
+        can_live = defaultdict(int)
         for cell in self.cells:
             live_cells, empty_cells = self._get_adjacent_cells(cell)
             if len(live_cells) < 2:
                 will_die.add(cell)
+
+            for empty_cell in empty_cells:
+                can_live[empty_cell] += 1
+
+        for cell, count in can_live.items():
+            if count == 3:
+                self.cells.add(cell)
 
         self.cells -= will_die
 

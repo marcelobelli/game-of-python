@@ -35,12 +35,11 @@ def test_each_cell_with_one_or_no_neighbors_dies_as_if_by_solitude_first_example
     """
     0 0 X       X X X
     X X X   ->  X X X
-    X X 0       X X X
+    X X X       X X X
     """
     grid = Grid(3, 3)
     grid.add_cell(Cell(0, 0))
     grid.add_cell(Cell(0, 1))
-    grid.add_cell(Cell(2, 2))
     expected_next_iteration = Grid(3, 3)
 
     assert grid != expected_next_iteration
@@ -80,6 +79,49 @@ def test_each_cell_with_two_neighbors_survives():
     grid.add_cell(Cell(0, 2))
     grid.add_cell(Cell(1, 1))
     grid.add_cell(Cell(2, 0))
+    expected_next_iteration = Grid(3, 3)
+    expected_next_iteration.add_cell(Cell(1, 1))
+
+    assert grid != expected_next_iteration
+
+    grid.next_iteration()
+
+    assert grid == expected_next_iteration
+
+
+def test_each_cell_with_three_neighbors_becomes_populated_first_example():
+    """
+    0 0 X       0 0 X
+    0 X X   ->  0 0 X
+    X X X       X X X
+    """
+    grid = Grid(3, 3)
+    grid.add_cell(Cell(0, 0))
+    grid.add_cell(Cell(0, 1))
+    grid.add_cell(Cell(1, 0))
+    expected_next_iteration = Grid(3, 3)
+    expected_next_iteration.add_cell(Cell(0, 0))
+    expected_next_iteration.add_cell(Cell(0, 1))
+    expected_next_iteration.add_cell(Cell(1, 0))
+    expected_next_iteration.add_cell(Cell(1, 1))
+
+    assert grid != expected_next_iteration
+
+    grid.next_iteration()
+
+    assert grid == expected_next_iteration
+
+
+def test_each_cell_with_three_neighbors_becomes_populated_second_example():
+    """
+    0 0 X       X X X
+    X X X   ->  X 0 X
+    X X 0       X X X
+    """
+    grid = Grid(3, 3)
+    grid.add_cell(Cell(0, 0))
+    grid.add_cell(Cell(0, 1))
+    grid.add_cell(Cell(2, 2))
     expected_next_iteration = Grid(3, 3)
     expected_next_iteration.add_cell(Cell(1, 1))
 
