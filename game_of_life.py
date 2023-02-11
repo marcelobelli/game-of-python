@@ -4,8 +4,16 @@ class Grid:
         self.height = height
         self.cells = set()
 
+    def __eq__(self, other):
+        if not isinstance(other, Grid):
+            return False
+        return self.width == other.width and self.height == other.height and self.cells == other.cells
+
     def add_cell(self, cell):
         self.cells.add(cell)
+
+    def next_iteration(self):
+        self.cells = set()
 
 
 class Cell:
