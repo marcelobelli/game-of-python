@@ -20,3 +20,12 @@ def test_grid_cannot_have_duplicated_cells():
     grid.add_cell(cell_1)
     grid.add_cell(cell_2)
     assert len(grid.cells) == 1
+
+
+def test_grid_can_have_multiple_cells():
+    grid = Grid(10, 10)
+    cell_1 = Cell(1, 1)
+    cell_2 = Cell(2, 2)
+    grid.add_cell(cell_1)
+    grid.add_cell(cell_2)
+    assert len(grid.cells) == 2
