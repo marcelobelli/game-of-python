@@ -46,21 +46,19 @@ class Grid:
             for empty_cell in empty_cells:
                 can_live[empty_cell] += 1
 
-        for cell, count in can_live.items():
-            if count == 3:
-                self.cells.add(cell)
-
+        self.cells |= {cell for cell, count in can_live.items() if count == 3}
         self.cells -= will_die
 
-    def _get_adjacent_cells(self, cell: Cell) -> tuple[set[Cell], set[Cell]]:
+    def _get_adjacent_cells(self, cell):
         offsets = ((-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1))
 
         live_cells = set()
         empty_cells = set()
         for offset in offsets:
-            if Cell(cell.x + offset[0], cell.y + offset[1]) in self.cells:
-                live_cells.add(Cell(cell.x + offset[0], cell.y + offset[1]))
+            neighbor_cell = Cell(cell.x + offset[0], cell.y + offset[1])
+            if neighbor_cell in self.cells:
+                live_cells.add(neighbor_cell)
             else:
-                empty_cells.add(Cell(cell.x + offset[0], cell.y + offset[1]))
+                empty_cells.add(neighbor_cell)
 
         return live_cells, empty_cells
