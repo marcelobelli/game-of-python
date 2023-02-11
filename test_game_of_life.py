@@ -183,3 +183,31 @@ def test_each_cell_with_four_neighbors_dies_as_if_by_overpopulation():
     grid.next_iteration()
 
     assert grid == expected_next_iteration
+
+
+def test_each_cell_with_more_then_four_neighbors_dies_as_if_by_overpopulation():
+    """
+    X 0 X       0 0 0
+    0 0 0   ->  0 X X
+    X 0 0       0 X 0
+    """
+    grid = Grid(3, 3)
+    grid.add_cell(Cell(0, 1))
+    grid.add_cell(Cell(1, 0))
+    grid.add_cell(Cell(1, 1))
+    grid.add_cell(Cell(1, 2))
+    grid.add_cell(Cell(2, 1))
+    grid.add_cell(Cell(2, 2))
+    expected_next_iteration = Grid(3, 3)
+    expected_next_iteration.add_cell(Cell(0, 0))
+    expected_next_iteration.add_cell(Cell(0, 1))
+    expected_next_iteration.add_cell(Cell(0, 2))
+    expected_next_iteration.add_cell(Cell(1, 0))
+    expected_next_iteration.add_cell(Cell(2, 0))
+    expected_next_iteration.add_cell(Cell(2, 2))
+
+    assert grid != expected_next_iteration
+
+    grid.next_iteration()
+
+    assert grid == expected_next_iteration
